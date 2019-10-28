@@ -3,26 +3,38 @@ var field,
 		snake,
 		interval,
 		score,
-		direction = 'right';
+		direction = 'right',
+		pause = false;
 
 function startGame(){
-	game.classList.remove('disable');														// enable game-score
-	genField();																									// generation a new game field
-	createSnake();																							// generation a new snake
-	createMouse();																							// generation a new mouse
-	interval = setInterval(move, 70);														// start moving and sеt complexity
-	startBlock.classList.add('disable');												// disabled game-menu
+	game.classList.remove('disable');														
+	genField();																									
+	createSnake();																							
+	createMouse();	
+	
+	//choice a hard
+	if (easy.checked) {
+		interval = setInterval(move, 100);	
+	} else if (medium.checked) {
+		interval = setInterval(move, 60);
+	} else if (hard.checked) {
+		interval = setInterval(move, 40);
+	}
+	
+
+
+	startBlock.classList.add('disable');												
 }
 
 function endGame(){
-	score = (snake.length - 3);																	// count a score
-	alert('You lose. Score:' + score);													// lose nameplate 
-	clearInterval(interval);																		// clear interval for a new game
-	field.remove();																							// clear field
-	document.getElementById("highscore").textContent = score;		// set a highscore
-	yourScore.textContent = 0; 																	// clear score
-	startBlock.classList.remove('disable');											// enable game menu
-	game.classList.add('disable');															// disable game-score
+	score = (snake.length - 3);				
+	alert('You lose. Score:' + score);
+	clearInterval(interval);
+	field.remove();
+	document.getElementById("highscore").textContent = score;		
+	yourScore.textContent = 0;
+	startBlock.classList.remove('disable');
+	game.classList.add('disable');
 }
 
 function genField(){
@@ -31,6 +43,10 @@ function genField(){
 	field  = document.createElement('div');
 	document.body.appendChild(field);
 	field.classList.add('field');
+
+	let score  = document.createElement('div');
+	field.appendChild(score);
+	score.classList.add('score');
 
 	// generation a 1250 excels
 	for (let i=0; i<1250; i++){
@@ -104,10 +120,12 @@ function createMouse(){
 function move(){
 
 	//snake moving
-	let snakeCoord = [snake[0].getAttribute('posX'), snake[0].getAttribute('posY')]; //coordination of snake head 
-	snake[0].classList.remove('head');	//clear head 
-	snake[snake.length - 1].classList.remove('excel-snake'); //clear tail
-	snake.pop();
+	if (!pause){
+		let snakeCoord = [snake[0].getAttribute('posX'), snake[0].getAttribute('posY')]; //coordination of snake head 
+		snake[0].classList.remove('head');	//clear head 
+		snake[snake.length - 1].classList.remove('excel-snake'); //clear tail
+		snake.pop();
+	
 
 	// button movement, if snake beyond the limits, than snake becomeon the start line
 	if (direction == 'right'){
@@ -136,6 +154,8 @@ function move(){
 		}
 	}
 
+
+
 	//snake eat mouse
 	if (snake[0].getAttribute('posX') == mouse[0].getAttribute('posX') &&
 		  snake[0].getAttribute('posY') == mouse[0].getAttribute('posY')){
@@ -150,7 +170,6 @@ function move(){
 
 				createMouse();
 	}
-
 	//snake eat tail
 	if (snake[0].classList.contains('excel-snake')){
 		endGame();
@@ -162,7 +181,7 @@ function move(){
 		snake[i].classList.add('excel-snake');
 	}
 
-
+	}
 }
 
 // press "Start" for play a game
@@ -170,16 +189,25 @@ start.onclick = function(e) {
 	startGame();	
 }
 
+
+
 // move button 
 window.addEventListener('keydown', function(e){ 
 	if (e.keyCode == 37 && direction != 'right'){
 		direction = 'left';
-	} else if (e.keyCode == 38 && direction != 'down'){
+	} else if (e.keyCode == 38 && direction != 'down') {
 		direction = 'up';
-	}	else if (e.keyCode == 39 && direction != 'left'){
+	}	else if (e.keyCode == 39 && direction != 'left') {
 		direction = 'right';
-	} else if (e.keyCode == 40 && direction != 'up'){
+	} else if (e.keyCode == 40 && direction != 'up') {
 		direction = 'down';	
+	} 
+	if (e.keyCode == 32 && !pause){
+		pause = true;
+		field.classList.add('field-pause')
+	} else if (e.keyCode == 32 && pause){
+		pause = false;
+		field.classList.remove('field-pause')
 	}
 })
 

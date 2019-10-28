@@ -1,6 +1,7 @@
 *{
 	color: rgb(77, 77, 77);
 	box-sizing: border-box;
+	font-family: 'Courier New', Courier, monospace;
 }
 
 
@@ -20,12 +21,75 @@
 
 .highscore, .title, .score{
 	text-align: center;
-	font-family: 'Courier New', Courier, monospace;
 }
 
-.title, .score{
-	padding: 5px;
+.titleGame{
+	padding-top: 25px;
 	margin: 0;
+}
+
+.pause{
+	font-size: 18px;
+	padding: 0;
+	margin: 0;
+	padding-bottom: 15px;
+}
+
+.score{
+	padding: 0;
+	margin: 0;
+	position: absolute;
+	color: rgba(255, 255, 255, 0.384);
+	font-size: 100px;
+	display: flex;
+	width: 98%;
+	height: 500px;
+	justify-content: center;
+	align-items: center;
+	z-index: 3;
+}
+
+.level{
+	list-style: none;
+	display: flex;
+	justify-content: space-evenly;
+	padding: 0;
+}
+
+.level li span{
+	font-size: 20px;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.radio{
+	display: none;
+}
+
+#easy:checked ~ .easy{
+	color: #000;
+	border-bottom: 1px solid #000;
+}
+
+#medium:checked ~ .medium{
+	color: #000;
+	border-bottom: 1px solid #000;
+}
+
+#hard:checked ~ .hard{
+	color: #000;
+	border-bottom: 1px solid #000;
+}
+
+.choise{
+	color: #000;
+	border-bottom: 1px solid #000;
+}
+
+.level li span:hover{
+	color: rgb(0, 0, 0);
+	border-bottom: 1px solid #000;
+	text-shadow: 5px 5px 15px #000;
 }
 
 .start{
@@ -50,6 +114,7 @@
 }
 
 .field{
+	position: relative;
 	width: 1000px;
 	height: 500px;
 	margin: 0 auto;
@@ -58,14 +123,20 @@
 	flex-wrap: wrap;
 }
 
+.field-pause{
+	opacity: 0.6;
+}
+
 .excel{
 	width: 20px;
 	height: 20px;
 }
 
 .excel-snake{
-	background: rgb(15, 128, 0);
+	/* background: rgb(15, 128, 0); */
+	background: rgb(216, 216, 216);
 	border: 1px solid #000;
+	z-index: 5;
 }
 
 .mouse{
@@ -74,5 +145,5 @@
 }
 
 .head{
-	background: rgb(15, 128, 0);
+	background: rgb(238, 255, 0);
 }

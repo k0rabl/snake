@@ -11,10 +11,30 @@
 	<div id="startBlock" class="start-block">
 		<h3 class="title">snake!</h3>
 		<h3 class="highscore">Your highscore: <span id="highscore">0</span></h3>
+		<ul class="level">
+			<li>
+				<label>
+					<input class="radio" type="radio" name="choice" id="easy">
+					<span class="easy">easy</span>
+				</label>
+			</li>
+			<li>
+				<label>
+					<input class="radio" type="radio" name="choice" id="medium">
+					<span class="medium">medium</span>
+				</label>
+			</li>
+			<li>
+				<label>
+					<input class="radio" type="radio" name="choice" id="hard">
+					<span class="hard">hard</span>
+				</label>
+			</li>
+		</ul>
 		<button id="start" class="start">Start!</button>
 	</div>
 	<div id="game" class="game disable">
-		<h1 class="title">snake!</h1>
+		<h1 class="titleGame title">snake! <p class="pause">(press "Space" for pause)</p></h1>
 		<h1 id="yourScore" class="score">0</h1>	
 	</div>
 	<script src="script.js"></script>
